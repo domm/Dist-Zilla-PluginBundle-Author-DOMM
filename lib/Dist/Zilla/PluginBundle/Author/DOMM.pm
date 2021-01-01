@@ -59,6 +59,9 @@ sub configure {
             issues=>1,
             ($self->homepage ? (homepage => $self->homepage) : ()),
         }],
+        [ 'Git::Check' => {
+            allow_dirty => [qw/dist.ini Changes README.md cpanfile/]
+        }],
         'ConfirmRelease',
         'FakeRelease',
         [ 'Git::Commit' => 'Commit_Dirty_Files' => {
