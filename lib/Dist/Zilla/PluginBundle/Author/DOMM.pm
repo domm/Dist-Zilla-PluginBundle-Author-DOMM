@@ -76,7 +76,9 @@ sub configure {
             tag_format => '%v',
             tag_message => 'release %v',
         }],
-        'NextRelease',
+        ['NextRelease' => {
+            format=>'%-9v %{yyyy-MM-dd HH:mm:ssZZZZZ}d%{ (TRIAL RELEASE)}T',
+        }],
         [ 'Git::Push' => { push_to => ['origin'] } ],
     );
 }

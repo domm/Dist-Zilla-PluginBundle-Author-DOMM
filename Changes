@@ -2,6 +2,8 @@ Revision history for Dist::Zilla::PluginBundle::Author::DOMM
 
 {{$NEXT}}
 
+0.903     2021-01-01 18:18:27+01:00 Europe/Vienna
+
 
 0.902   2021-01-01T18:10:48
     - fiddle with NextRelease & Git::Push
