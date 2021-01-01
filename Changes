@@ -1,10 +1,12 @@
 Revision history for Dist::Zilla::PluginBundle::Author::DOMM
 
 {{$NEXT}}
+    - remove MetaChanges, too much noise in META.json, IMO
+
 
 0.905     2021-01-01 18:37:49+01:00
     - fixed dist-name
-    
+
 
 0.904     2021-01-01 18:23:41+01:00
     - fiddle with NextRealease format

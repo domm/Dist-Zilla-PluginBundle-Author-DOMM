@@ -42,7 +42,6 @@ sub configure {
         'CheckChangeLog' ,
         'OurPkgVersion',
         'PodWeaver',
-        'MetaConfig' ,
         'InstallGuide',
         ['Test::Compile' => {
             fake_home => 1
