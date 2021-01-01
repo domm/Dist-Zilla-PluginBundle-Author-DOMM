@@ -63,7 +63,7 @@ sub configure {
         'FakeRelease',
         [ 'Git::Commit' => 'Commit_Dirty_Files' => {
             allow_dirty => [qw/dist.ini Changes README.md/],
-            commit_msg => 'Release %V  -  %v'
+            commit_msg => 'Release %V'
         }],
         ['Git::NextVersion' => {
             first_version => '0.900',
@@ -73,8 +73,6 @@ sub configure {
             tag_format => '%v',
             tag_message => 'release %v',
         }],
-    # 'NextRelease',
-    #    [ 'Git::Commit' => 'Commit_Changes' => { commit_msg => "bump Changes" } ],
     );
 }
 
