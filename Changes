@@ -1,5 +1,9 @@
 Revision history for Dist::Zilla::PluginBundle::Author::DOMM
 
+0.902   2021-01-01T18:10:48
+    - fiddle with NextRelease & Git::Push
+
+
 0.901   2021-01-01T18:03:03
     - move some dist.ini data into ~/.dzil/config.ini
 
