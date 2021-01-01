@@ -1,11 +1,8 @@
 package Dist::Zilla::PluginBundle::Author::DOMM;
 
-# ABSTRACT: BeLike::DOMM when you zilla your dist
+# ABSTRACT: Dist::Zilla config suiting my needs
 
-our $VERSION = 0.900;
-
-# based on: Dist::Zilla::PluginBundle::Author::ETHER
-# shorter: Dist::Zilla::PluginBundle::Author::CCM
+# VERSION
 
 use Moose;
 use namespace::autoclean;
@@ -13,21 +10,6 @@ with qw(
   Dist::Zilla::Role::PluginBundle::Easy
   Dist::Zilla::Role::PluginBundle::PluginRemover
 );
-use Dist::Zilla::PluginBundle::Basic;
-use Dist::Zilla::Plugin::AutoPrereqs;
-use Dist::Zilla::Plugin::CheckChangeLog;
-use Dist::Zilla::Plugin::VersionFromModule;
-use Dist::Zilla::Plugin::PodWeaver;
-use Dist::Zilla::Plugin::MetaConfig;
-use Dist::Zilla::Plugin::MetaResources;
-use Dist::Zilla::Plugin::MetaJSON;
-use Dist::Zilla::Plugin::CPANFile;
-use Dist::Zilla::Plugin::GithubMeta;
-use Dist::Zilla::Plugin::InstallGuide;
-use Dist::Zilla::Plugin::CopyFilesFromBuild;
-use Dist::Zilla::Plugin::Run;
-
-use List::Util qw(any);
 
 has homepage => (
   is      => 'ro' ,
@@ -36,53 +18,70 @@ has homepage => (
   default => sub { $_[0]->payload->{homepage} } ,
 );
 
-my @never_gather = grep -e, qw(
-    Makefile.PL README.md README.pod META.json
-    cpanfile cpanfile.snapshot TODO CONTRIBUTING LICENCE LICENSE INSTALL
-    local
-);
-
 sub configure {
     my $self = shift;
 
     $self->add_plugins(
-        ['GatherDir' => {
-            (@never_gather ? (exclude_filename => \@never_gather) : ()),
-            exclude_match=>[qw(local)],
-        }],
+        [ 'Git::GatherDir' =>
+            { exclude_filename => [qw/README.pod META.json cpanfile/] }],
         'PruneCruft',
-        'VersionFromModule',
         'ManifestSkip',
         'License',
+        [ MetaNoIndex => {
+            directory => [qw/t xt examples/],
+        }],
+        ['MetaProvides::Package' => { meta_noindex => 1 } ],
         'MetaJSON',
         'ModuleBuild',
         'Manifest',
-        'AutoPrereqs',
+        ['AutoPrereqs' => {skips=>['^strict$','^warnings$', '^utf8$']}],
         'CPANFile',
-        # script vs bin??
-        (-d ($self->payload->{'ExecDir.dir'} // 'bin') || any { /^ExecDir\./ } keys %{ $self->payload })
-            ? [ 'ExecDir' => { dir => 'bin' } ] : (),
-        'ShareDir', # use similar trick as for ExecDir?
+        'ExecDir',
+        'ShareDir',
         'ExtraTests',
         'CheckChangeLog' ,
+        'OurPkgVersion',
         'PodWeaver',
         'MetaConfig' ,
         'InstallGuide',
+        ['Test::Compile' => {
+            fake_home => 1
+        }],
         'TestRelease',
-        'ConfirmRelease',
-        [ 'ReadmeAnyFromPod' => {
+        [ 'ReadmeAnyFromPod' => { # TODO escaping of '::' in metacpan urls in readme
             type=>'markdown',
             filename=>'README.md',
             location=>'build',
         }],
-        [ 'CopyFilesFromBuild' => { copy => 'README.md' } ],
+        [ 'CopyFilesFromBuild' => { copy => ['README.md', 'cpanfile'] } ],
         # TODO default homepage should be metacpan!
         ['GithubMeta' => {
             issues=>1,
             ($self->homepage ? (homepage => $self->homepage) : ()),
-        }]
+        }],
+        'ConfirmRelease',
+        'FakeRelease',
+        [ 'Git::Commit' => 'Commit_Dirty_Files' => {
+            allow_dirty => [qw/dist.ini Changes README.md/]
+        }],
+        ['Git::NextVersion' => {
+            first_version => '0.900',
+            version_regexp => '^(\d+\..+)$',
+        }],
+        ['Git::Tag' => {
+            tag_format => '%v',
+            tag_message => 'release %v',
+        }],
+        'NextRelease',
+        [ 'Git::Commit' => 'Commit_Changes' => { commit_msg => "bump Changes" } ],
     );
 }
 
-1;
+q{ listening to: FM4 Jahrescharts 2020};
+
+=head1 DESCRIPTION
+
+My feeble attempt to come up with a suitable and unified (for me) Dist::Zilla config.
+
+This seems a bit saner then my previous approach (copy C<dist.ini> from project to project, each time with some slight changes). I do think that setting Dist::Zilla up is way too much work, but I don't agree with all the opinions in Dist::Milla, so here we are...
 

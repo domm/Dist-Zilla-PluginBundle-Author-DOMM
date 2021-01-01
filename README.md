@@ -4,7 +4,11 @@ Dist::Zilla::PluginBundle::Author::DOMM - BeLike::DOMM when you zilla your dist
 
 # VERSION
 
-version 0.9
+version 0.900
+
+# DESCRIPTION
+
+My feeble attempt to come up with a suitable and unified (for me) Dist::Zilla config.
 
 # AUTHOR
 
