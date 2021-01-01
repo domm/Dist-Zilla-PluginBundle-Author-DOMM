@@ -73,6 +73,8 @@ sub configure {
             tag_format => '%v',
             tag_message => 'release %v',
         }],
+        'NextRelease',
+        [ 'Git::Push' => { push_to => ['origin'] } ],
     );
 }
 
