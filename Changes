@@ -1,6 +1,8 @@
 Revision history for Dist::Zilla::PluginBundle::Author::DOMM
 
 {{$NEXT}}
+
+0.906     2021-01-01 18:46:39+01:00
     - remove MetaChanges, too much noise in META.json, IMO
 
 
