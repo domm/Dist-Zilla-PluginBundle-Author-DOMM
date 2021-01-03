@@ -40,6 +40,9 @@ sub configure {
         'ShareDir',
         'ExtraTests',
         'CheckChangeLog' ,
+        ['NextRelease' => {
+            format=>'%-9v %{yyyy-MM-dd HH:mm:ssZZZZZ}d%{ (TRIAL RELEASE)}T',
+        }],
         'OurPkgVersion',
         'PodWeaver',
         'InstallGuide',
@@ -74,9 +77,6 @@ sub configure {
         ['Git::Tag' => {
             tag_format => '%v',
             tag_message => 'release %v',
-        }],
-        ['NextRelease' => {
-            format=>'%-9v %{yyyy-MM-dd HH:mm:ssZZZZZ}d%{ (TRIAL RELEASE)}T',
         }],
         [ 'Git::Push' => { push_to => ['origin'] } ],
     );
