@@ -1,6 +1,9 @@
 Revision history for Dist::Zilla::PluginBundle::Author::DOMM
 
 {{$NEXT}}
+    - switch to CheckChangesHasContent
+    - use all used Plugins explicitly
+
 
 0.907     2021-01-03 18:38:23+01:00
 
