@@ -12,6 +12,39 @@ with qw(
   Dist::Zilla::Role::PluginBundle::Config::Slicer
 );
 
+use Dist::Zilla::Plugin::OurPkgVersion;
+use Dist::Zilla::Plugin::Git::GatherDir;
+use Dist::Zilla::Plugin::PruneCruft;
+use Dist::Zilla::Plugin::ManifestSkip;
+use Dist::Zilla::Plugin::License;
+use Dist::Zilla::Plugin::MetaNoIndex;
+use Dist::Zilla::Plugin::MetaProvides::Package;
+use Dist::Zilla::Plugin::MetaJSON;
+use Dist::Zilla::Plugin::ModuleBuild;
+use Dist::Zilla::Plugin::Manifest;
+use Dist::Zilla::Plugin::AutoPrereqs;
+use Dist::Zilla::Plugin::CPANFile;
+use Dist::Zilla::Plugin::ExecDir;
+use Dist::Zilla::Plugin::ShareDir;
+use Dist::Zilla::Plugin::ExtraTests;
+use Dist::Zilla::Plugin::CheckChangesHasContent;
+use Dist::Zilla::Plugin::NextRelease;
+use Dist::Zilla::Plugin::OurPkgVersion;
+use Dist::Zilla::Plugin::PodWeaver;
+use Dist::Zilla::Plugin::InstallGuide;
+use Dist::Zilla::Plugin::Test::Compile;
+use Dist::Zilla::Plugin::TestRelease;
+use Dist::Zilla::Plugin::ReadmeAnyFromPod;
+use Dist::Zilla::Plugin::CopyFilesFromBuild;
+use Dist::Zilla::Plugin::GithubMeta;
+use Dist::Zilla::Plugin::Git::Check;
+use Dist::Zilla::Plugin::ConfirmRelease;
+use Dist::Zilla::Plugin::FakeRelease;
+use Dist::Zilla::Plugin::Git::Commit;
+use Dist::Zilla::Plugin::Git::NextVersion;
+use Dist::Zilla::Plugin::Git::Tag;
+use Dist::Zilla::Plugin::Git::Push;
+
 has homepage => (
   is      => 'ro' ,
   isa     => 'Maybe[Str]' ,
