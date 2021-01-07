@@ -73,7 +73,7 @@ sub configure {
         'ExecDir',
         'ShareDir',
         'ExtraTests',
-        'CheckChangesHasContent' ,
+        'CheckChangesHasContent',
         ['NextRelease' => {
             format=>'%-9v %{yyyy-MM-dd HH:mm:ssZZZZZ}d%{ (TRIAL RELEASE)}T',
         }],
