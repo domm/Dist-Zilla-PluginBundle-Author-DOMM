@@ -12,7 +12,6 @@ with qw(
   Dist::Zilla::Role::PluginBundle::Config::Slicer
 );
 
-use Dist::Zilla::Plugin::OurPkgVersion;
 use Dist::Zilla::Plugin::Git::GatherDir;
 use Dist::Zilla::Plugin::PruneCruft;
 use Dist::Zilla::Plugin::ManifestSkip;
