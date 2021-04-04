@@ -38,11 +38,12 @@ use Dist::Zilla::Plugin::CopyFilesFromBuild;
 use Dist::Zilla::Plugin::GithubMeta;
 use Dist::Zilla::Plugin::Git::Check;
 use Dist::Zilla::Plugin::ConfirmRelease;
-use Dist::Zilla::Plugin::FakeRelease;
+use Dist::Zilla::Plugin::UploadToCPAN;
 use Dist::Zilla::Plugin::Git::Commit;
 use Dist::Zilla::Plugin::Git::NextVersion;
 use Dist::Zilla::Plugin::Git::Tag;
 use Dist::Zilla::Plugin::Git::Push;
+use Dist::Zilla::Plugin::Clean;
 
 has homepage => (
   is      => 'ro' ,
@@ -98,7 +99,7 @@ sub configure {
             allow_dirty => [qw/dist.ini Changes README.md cpanfile/]
         }],
         'ConfirmRelease',
-        'FakeRelease',
+        'UploadToCPAN',
         [ 'Git::Commit' => 'Commit_Dirty_Files' => {
             allow_dirty => [qw/dist.ini Changes README.md/],
             commit_msg => 'Release %V'
@@ -112,6 +113,7 @@ sub configure {
             tag_message => 'release %v',
         }],
         [ 'Git::Push' => { push_to => ['origin'] } ],
+        'Clean',
     );
 }
 
