@@ -1,6 +1,8 @@
 Revision history for Dist::Zilla::PluginBundle::Author::DOMM
 
 {{$NEXT}}
+    - add SourceHutMeta to plugins (Thomas Klausner)
+    - copy LICENSE from build into git repo (sourcehut complains if there is no license file) (Thomas Klausner)
 
 0.909     2021-04-04 16:18:34+02:00
     - move data from global dist.ini into dist (Thomas Klausner)
