@@ -57,7 +57,7 @@ sub configure {
 
     $self->add_plugins(
         [ 'Git::GatherDir' =>
-            { exclude_filename => [qw/README.pod META.json cpanfile/] }],
+            { exclude_filename => [qw/README.pod META.json cpanfile LICENSE/] }],
         'PruneCruft',
         'ManifestSkip',
         'License',
@@ -89,7 +89,7 @@ sub configure {
             filename=>'README.md',
             location=>'build',
         }],
-        [ 'CopyFilesFromBuild' => { copy => ['README.md', 'cpanfile'] } ],
+        [ 'CopyFilesFromBuild' => { copy => ['README.md', 'cpanfile', 'LICENSE'] } ],
         # TODO default homepage should be metacpan!
         ['GithubMeta' => {
             issues=>1,
