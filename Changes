@@ -1,6 +1,8 @@
 Revision history for Dist::Zilla::PluginBundle::Author::DOMM
 
 {{$NEXT}}
+
+0.910     2025-09-28 17:16:38+02:00
     - add SourceHutMeta to plugins (Thomas Klausner)
     - copy LICENSE from build into git repo (sourcehut complains if there is no license file) (Thomas Klausner)
 
