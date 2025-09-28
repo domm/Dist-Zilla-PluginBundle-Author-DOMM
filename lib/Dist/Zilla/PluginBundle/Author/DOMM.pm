@@ -36,6 +36,7 @@ use Dist::Zilla::Plugin::TestRelease;
 use Dist::Zilla::Plugin::ReadmeAnyFromPod;
 use Dist::Zilla::Plugin::CopyFilesFromBuild;
 use Dist::Zilla::Plugin::GithubMeta;
+use Dist::Zilla::Plugin::SourceHutMeta;
 use Dist::Zilla::Plugin::Git::Check;
 use Dist::Zilla::Plugin::ConfirmRelease;
 use Dist::Zilla::Plugin::UploadToCPAN;
@@ -50,6 +51,11 @@ has homepage => (
   isa     => 'Maybe[Str]' ,
   lazy    => 1 ,
   default => sub { $_[0]->payload->{homepage} } ,
+);
+has issues => (
+  is      => 'ro' ,
+  isa     => 'Bool' ,
+  lazy    => 0,
 );
 
 sub configure {
@@ -81,7 +87,8 @@ sub configure {
         'PodWeaver',
         'InstallGuide',
         ['Test::Compile' => {
-            fake_home => 1
+            fake_home => 1,
+            fail_on_warning=>'none',
         }],
         'TestRelease',
         [ 'ReadmeAnyFromPod' => { # TODO escaping of '::' in metacpan urls in readme
@@ -93,6 +100,10 @@ sub configure {
         # TODO default homepage should be metacpan!
         ['GithubMeta' => {
             issues=>1,
+            ($self->homepage ? (homepage => $self->homepage) : ()),
+        }],
+        ['SourceHutMeta' => {
+            issues => $self->issues,
             ($self->homepage ? (homepage => $self->homepage) : ()),
         }],
         [ 'Git::Check' => {
